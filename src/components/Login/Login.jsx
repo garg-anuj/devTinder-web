@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { API, BASE_URL } from "../../utils/constant";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -12,10 +13,18 @@ const Login = () => {
     const { value, name } = event.target;
     setFormValues((previousValues) => ({ ...previousValues, [name]: value }));
   };
+  const axiosConfig = {
+    withCredentials: true, // Allow cookies and credentials to be sent
+  };
+
   const handleSubmit = async () => {
     try {
       const payLoad = formValues;
-      const response = await axios.post("http://localhost:3000/login", payLoad);
+      const response = await axios.post(
+        BASE_URL + API.LOGIN,
+        payLoad,
+        axiosConfig
+      );
       const { firstName, lastName } = response.data.data;
       alert(`${firstName} ${lastName} login successfully`);
       console.log(response.data);
