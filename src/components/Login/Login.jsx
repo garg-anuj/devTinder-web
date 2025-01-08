@@ -1,15 +1,27 @@
+import axios from "axios";
 import { useState } from "react";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
-    email: "",
+    emailId: "",
     password: "",
   });
-  const { email, password } = formValues;
+  const { emailId: email, password } = formValues;
 
   const handleInput = (event) => {
     const { value, name } = event.target;
     setFormValues((previousValues) => ({ ...previousValues, [name]: value }));
+  };
+  const handleSubmit = async () => {
+    try {
+      const payLoad = formValues;
+      const response = await axios.post("http://localhost:3000/login", payLoad);
+      const { firstName, lastName } = response.data.data;
+      alert(`${firstName} ${lastName} login successfully`);
+      console.log(response.data);
+    } catch (err) {
+      console.log("ERROR " + err.message);
+    }
   };
   return (
     <div className="flex justify-center">
@@ -32,7 +44,7 @@ const Login = () => {
                 type="text"
                 className="grow"
                 placeholder="Email"
-                name="email"
+                name="emailId"
                 value={email}
                 onChange={handleInput}
               />
@@ -62,7 +74,9 @@ const Login = () => {
             </label>
           </div>
           <div className="card-actions">
-            <button className="btn btn-primary">Submit Login</button>
+            <button onClick={handleSubmit} className="btn btn-primary">
+              Submit Login
+            </button>
           </div>
         </div>
       </div>
