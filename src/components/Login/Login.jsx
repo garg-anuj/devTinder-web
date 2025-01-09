@@ -1,5 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
+
+import { addUser } from "../../redux/userInfoSlice";
+
 import { API, BASE_URL } from "../../utils/constant";
 
 const Login = () => {
@@ -8,6 +13,9 @@ const Login = () => {
     password: "",
   });
   const { emailId: email, password } = formValues;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInput = (event) => {
     const { value, name } = event.target;
@@ -28,6 +36,8 @@ const Login = () => {
       const { firstName, lastName } = response.data.data;
       alert(`${firstName} ${lastName} login successfully`);
       console.log(response.data);
+      dispatch(addUser(response.data.data));
+      navigate("/feed");
     } catch (err) {
       console.log("ERROR " + err.message);
     }

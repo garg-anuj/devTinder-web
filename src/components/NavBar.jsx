@@ -1,4 +1,12 @@
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 const NavBar = () => {
+  const selector = useSelector((state) => state.userSlice);
+  const { firstName, lastName } = selector || {};
+  const handleLogOut = async () => {
+    await axios.post("http://localhost:3000/logout");
+  };
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
@@ -12,6 +20,11 @@ const NavBar = () => {
         className="input input-bordered w-24 md:w-auto"
       />
     </div> */}
+        {firstName && (
+          <div className="px-2 capitalize">
+            {`Welcome ${firstName} ${lastName || ""}`}{" "}
+          </div>
+        )}
         <div className="dropdown dropdown-end mr-2">
           <div
             tabIndex={0}
@@ -38,7 +51,7 @@ const NavBar = () => {
             <li>
               <a>Settings</a>
             </li>
-            <li>
+            <li onClick={handleLogOut}>
               <a>Logout</a>
             </li>
           </ul>
