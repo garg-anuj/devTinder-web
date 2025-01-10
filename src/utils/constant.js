@@ -3,6 +3,7 @@ export const BASE_URL = "http://localhost:3000";
 export const API = {
   SIGNUP: "/signup",
   LOGIN: "/login",
+  LOGOUT: BASE_URL + "/logout",
   USERS: "/users",
   UPDATE_USERS: "/users",
   PROFILE_EDIT: "/profile/edit",

@@ -1,11 +1,17 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../redux/userInfoSlice";
+import { API } from "../utils/constant";
 
 const NavBar = () => {
   const selector = useSelector((state) => state.userSlice);
   const { firstName, lastName } = selector || {};
+  const dispatch = useDispatch();
+
   const handleLogOut = async () => {
-    await axios.post("http://localhost:3000/logout");
+    await axios.post(API.LOGOUT, {}, { withCredentials: true });
+
+    dispatch(removeUser());
   };
   return (
     <div className="navbar bg-base-300">
