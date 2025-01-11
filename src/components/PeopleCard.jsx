@@ -32,18 +32,18 @@ const PeopleCard = ({ userFeed }) => {
         </div>
       </div>
     </div>
-  ).isRequired;
+  );
 };
 
-PeopleCard.PropTypes = {
+PeopleCard.propTypes = {
   userFeed: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     photoUrl: PropTypes.string.isRequired,
     skills: PropTypes.arrayOf(PropTypes.string).isRequired,
-    gender: PropTypes.oneOf(["male", "female", "other"]).isRequired,
-    age: PropTypes.number.isRequired,
-  }),
+    // gender: PropTypes.oneOf(["Male", "Female"]).isRequired,
+    // age: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default PeopleCard;
