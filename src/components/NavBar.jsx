@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { removeUser } from "../redux/userInfoSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import { API } from "../utils/constant";
 
 const NavBar = () => {
@@ -16,7 +18,9 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">DevTinder 👓</a>
+        <Link to="/" className="btn btn-ghost text-xl">
+          DevTinder 👓
+        </Link>
       </div>
       <div className="flex-none gap-2">
         {/* <div className="form-control">
@@ -59,6 +63,12 @@ const NavBar = () => {
             </li>
             <li onClick={handleLogOut}>
               <a>Logout</a>
+            </li>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+            <li>
+              <Link to="/feed">Profile</Link>
             </li>
           </ul>
         </div>

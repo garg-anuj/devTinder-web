@@ -1,16 +1,17 @@
 export const BASE_URL = "http://localhost:3000";
 
 export const API = {
-  SIGNUP: "/signup",
-  LOGIN: "/login",
+  SIGNUP: BASE_URL + "/signup",
+  LOGIN: BASE_URL + "/login",
   LOGOUT: BASE_URL + "/logout",
-  USERS: "/users",
-  UPDATE_USERS: "/users",
-  PROFILE_EDIT: "/profile/edit",
-  REQUEST_SEND: "/request/send/:status/:userId",
-  REQUEST_REVIEW: "/request/review/:status/:requestId",
-  CONNECTIONS: "/user/connections",
-  USERS_FEED: "/user/feed?page=1&limit=20",
+  USERS: BASE_URL + "/users",
+  UPDATE_USERS: BASE_URL + "/users",
+  USER_PROFILE: BASE_URL + "/profile",
+  PROFILE_EDIT: BASE_URL + "/profile/edit",
+  REQUEST_SEND: BASE_URL + "/request/send/:status/:userId",
+  REQUEST_REVIEW: BASE_URL + "/request/review/:status/:requestId",
+  CONNECTIONS: BASE_URL + "/user/connections",
+  USERS_FEED: BASE_URL + "/user/feed?page=1&limit=20",
 };
 
 // http://localhost:3000/signup
