@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { addUser } from "../../redux/userInfoSlice";
 
-import { API, BASE_URL } from "../../utils/constant";
+import { API } from "../../utils/constant";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -28,11 +28,7 @@ const Login = () => {
   const handleSubmit = async () => {
     try {
       const payLoad = formValues;
-      const response = await axios.post(
-        BASE_URL + API.LOGIN,
-        payLoad,
-        axiosConfig
-      );
+      const response = await axios.post(API.LOGIN, payLoad, axiosConfig);
       const { firstName, lastName } = response.data.data;
       alert(`${firstName} ${lastName} login successfully`);
       console.log(response.data);
