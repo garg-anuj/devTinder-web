@@ -6,6 +6,7 @@ import Body from "./Body";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import FeedPage from "./page/FeedPage";
+import ProfilePage from "./page/ProfilePage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/feed" element={<FeedPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Routes>
         </BrowserRouter>
