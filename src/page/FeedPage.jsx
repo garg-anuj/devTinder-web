@@ -14,9 +14,10 @@ const FeedPage = () => {
   useEffect(() => {
     const getFeeds = async () => {
       try {
+        if (userFeeds) {
+          return;
+        }
         const data = await getData(API.USERS_FEED);
-        setCurrentFeeds(data?.allUsers);
-
         dispatch(addFeeds(data?.allUsers));
       } catch (err) {
         console.log(err);
