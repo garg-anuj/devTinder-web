@@ -4,6 +4,8 @@ import { useState } from "react";
 import { patchData } from "../../../services/api";
 import HTTP_CONFIG from "../../../utils/httpConfig";
 import { API } from "./../../../utils/constant";
+import { addUser } from "../../../redux/userInfoSlice";
+import { useDispatch } from "react-redux";
 
 const EditProfile = ({ user }) => {
   const [formValues, setFormValues] = useState({
@@ -14,8 +16,8 @@ const EditProfile = ({ user }) => {
     photoUrl: user?.photoUrl,
     // skills: "",/
   });
-
   const { firstName, lastName, age, gender, photoUrl } = formValues;
+  const dispatch = useDispatch();
 
   const handleInput = (event) => {
     const { value, name } = event.target;
@@ -25,7 +27,15 @@ const EditProfile = ({ user }) => {
   const handleUpdateProfile = async () => {
     try {
       const payLoad = formValues;
-      await patchData(API.PROFILE_EDIT, payLoad, HTTP_CONFIG);
+      const updatedUser = await patchData(
+        API.PROFILE_EDIT,
+        payLoad,
+        HTTP_CONFIG
+      );
+
+      console.log(updatedUser);
+
+      dispatch(addUser(updatedUser));
     } catch (err) {
       console.log(err);
     }

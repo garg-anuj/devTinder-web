@@ -24,7 +24,7 @@ const FeedPage = () => {
       }
     };
     getFeeds();
-  }, [dispatch]);
+  }, [dispatch, userFeeds]);
 
   if (!userFeeds || userFeeds.length < 1) {
     return <div>No Data</div>;
