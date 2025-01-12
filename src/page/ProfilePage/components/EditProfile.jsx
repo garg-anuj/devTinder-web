@@ -1,20 +1,36 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
-const EditProfile = () => {
+import { patchData } from "../../../services/api";
+import HTTP_CONFIG from "../../../utils/httpConfig";
+import { API } from "./../../../utils/constant";
+
+const EditProfile = ({ user }) => {
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastNameL: "",
-    age: "",
-    gender: "",
-    skills: "",
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    age: user?.age,
+    gender: user?.gender,
+    photoUrl: user?.photoUrl,
+    // skills: "",/
   });
 
-  const { firstName, lastName, age, gender } = formValues;
+  const { firstName, lastName, age, gender, photoUrl } = formValues;
 
   const handleInput = (event) => {
     const { value, name } = event.target;
     setFormValues((previousValues) => ({ ...previousValues, [name]: value }));
   };
+
+  const handleUpdateProfile = async () => {
+    try {
+      const payLoad = formValues;
+      await patchData(API.PROFILE_EDIT, payLoad, HTTP_CONFIG);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <div className=" rounded-lg bg-base-300 w-96 my-4">
@@ -64,9 +80,22 @@ const EditProfile = () => {
                 onChange={handleInput}
               />
             </label>
+
+            <label className="input h-10 rounded-[.25rem] flex items-center gap-2 mb-4">
+              <input
+                className="grow text-wrap"
+                name="photoUrl"
+                placeholder="photo url"
+                value={photoUrl}
+                onChange={handleInput}
+              />
+            </label>
           </div>
           <div className="card-actions">
-            <button className="btn rounded-[.25rem] btn-primary">
+            <button
+              onClick={handleUpdateProfile}
+              className="btn rounded-[.25rem] btn-primary"
+            >
               Update Profile
             </button>
           </div>
@@ -74,6 +103,17 @@ const EditProfile = () => {
       </div>
     </div>
   );
+};
+
+EditProfile.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    photoUrl: PropTypes.string.isRequired,
+    skills: PropTypes.arrayOf(PropTypes.string),
+    age: PropTypes.number,
+    gender: PropTypes.oneOf(["Male", "Female"]),
+  }).isRequired,
 };
 
 export default EditProfile;
