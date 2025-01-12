@@ -1,9 +1,12 @@
 import { useState } from "react";
 
+import { postData } from "../services/api";
+import { API } from "../utils/constant";
+
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
     firstName: "",
-    lastNameL: "",
+    lastName: "",
     emailId: "",
     password: "",
   });
@@ -13,6 +16,16 @@ const SignUp = () => {
   const handleInput = (event) => {
     const { value, name } = event.target;
     setFormValues((previousValues) => ({ ...previousValues, [name]: value }));
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const payLoad = formValues;
+      const response = await postData(API.SIGNUP, payLoad);
+      return response;
+    } catch (err) {
+      return err;
+    }
   };
   return (
     <div className="flex justify-center">
@@ -65,7 +78,9 @@ const SignUp = () => {
             </label>
           </div>
           <div className="card-actions">
-            <button className="btn btn-primary">Sign up</button>
+            <button onClick={handleSignUp} className="btn btn-primary">
+              Sign up
+            </button>
           </div>
         </div>
       </div>
