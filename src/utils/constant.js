@@ -9,7 +9,8 @@ export const API = {
   USER_PROFILE: BASE_URL + "/profile",
   PROFILE_EDIT: BASE_URL + "/profile/edit",
   REQUEST_SEND: BASE_URL + "/request/send/:status/:userId",
-  REQUEST_REVIEW: BASE_URL + "/request/review/:status/:requestId",
+  REQUEST_INCOMING: BASE_URL + "/request/review/:status/:requestId",
+  REQUEST_REVIEW: BASE_URL + "/user/requests/review",
   CONNECTIONS: BASE_URL + "/user/connections",
   USERS_FEED: BASE_URL + "/user/feed?page=1&limit=20",
 };
@@ -24,3 +25,14 @@ export const API = {
 // http://localhost:3000/request/review/rejected/67799f284094cad5a5d5b88b
 // http://localhost:3000/user/requests/review
 // http://localhost:3000/user/feed?page=1&limit=20
+
+export const USER_STATUS = {
+  INTERESTED: "interested",
+  IGNORED: "ignored",
+  ACCEPTED: "accepted",
+  REJECTED: "rejected",
+};
+
+const { INTERESTED, IGNORED, ACCEPTED, REJECTED } = USER_STATUS;
+
+export const ALL_USER_STATUS = [INTERESTED, IGNORED, ACCEPTED, REJECTED];

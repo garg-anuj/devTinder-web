@@ -58,9 +58,7 @@ const NavBar = () => {
                 <span className="badge">New</span>
               </Link>
             </li>
-            <li>
-              <a>Settings</a>
-            </li>
+
             <li onClick={handleLogOut}>
               <a>Logout</a>
             </li>
@@ -69,6 +67,14 @@ const NavBar = () => {
             </li>
             <li>
               <Link to="/feed">Feed</Link>
+            </li>
+
+            <li>
+              <Link to="/connections">Connections</Link>
+            </li>
+
+            <li>
+              <Link to="/requests">Requests</Link>
             </li>
           </ul>
         </div>
