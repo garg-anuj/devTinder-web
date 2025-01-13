@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { EMPTY_OBJECT } from "./../utils/Freeze";
-import { USER_STATUS } from "../utils/constant";
+import { BASE_URL, USER_STATUS } from "../utils/constant";
+import { postData } from "../services/api";
 
 const RequestCard = ({ request }) => {
   const requestId = request._id;
@@ -11,11 +12,13 @@ const RequestCard = ({ request }) => {
     lastName,
     gender,
     age,
-    _id: requestUserId,
+    // _id: requestUserId,
   } = request.fromUserId || EMPTY_OBJECT;
 
-  const handleStatusBtn = (status, requestId) => {
-    // "/request/review/:status/:requestId"
+  const handleStatusBtn = async (status, requestId) => {
+    const url = `${BASE_URL}/request/review/${status}/${requestId}`;
+
+    postData(url);
   };
 
   return (

@@ -34,7 +34,7 @@ const RequestPage = () => {
   if (userRequests.length === 0) {
     return <div>No Connections Found</div>;
   }
-  console.log(userRequests);
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-center text-[#fff] my-4 font-s text-2xl">
