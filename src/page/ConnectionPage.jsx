@@ -4,6 +4,7 @@ import { useCallback, useEffect } from "react";
 import { addConnections } from "../redux/connectionsSlice";
 import { getData } from "../services/api";
 import { API } from "../utils/constant";
+import ConnectionCard from "../components/ConnectionCard";
 
 //already users hai connected / following type kaa
 const ConnectionPage = () => {
@@ -32,7 +33,18 @@ const ConnectionPage = () => {
     return <div>No Connections Found</div>;
   }
 
-  return <div>ConnectionPage</div>;
+  return (
+    <div className="flex flex-col items-center">
+      <h1 className="text-center text-[#fff] my-4 font-s text-2xl">
+        Connections
+      </h1>
+      <div className="md:w-1/2 lg:w-1/4 flex flex-col">
+        {userConnections.map((connection, idx) => {
+          return <ConnectionCard key={idx} connection={connection} />;
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default ConnectionPage;
