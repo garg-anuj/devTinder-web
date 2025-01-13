@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
-import { EMPTY_OBJECT } from "./../utils/Freeze";
+import { useDispatch } from "react-redux";
+
+import { removeFromRequests } from "../redux/requestsSlice";
 import { BASE_URL, USER_STATUS } from "../utils/constant";
 import { postData } from "../services/api";
+import { EMPTY_OBJECT } from "./../utils/Freeze";
 
 const RequestCard = ({ request }) => {
-  const requestId = request._id;
+  const connectionRequestId = request._id; //connectionId
   const { ACCEPTED, REJECTED } = USER_STATUS;
 
   const {
@@ -14,11 +17,17 @@ const RequestCard = ({ request }) => {
     age,
     // _id: requestUserId,
   } = request.fromUserId || EMPTY_OBJECT;
+  const dispatch = useDispatch();
 
-  const handleStatusBtn = async (status, requestId) => {
-    const url = `${BASE_URL}/request/review/${status}/${requestId}`;
-
-    postData(url);
+  const handleStatusBtn = async (status, connectionRequestId) => {
+    const url = `${BASE_URL}/request/review/${status}/${connectionRequestId}`;
+    try {
+      const response = await postData(url);
+      const connectionRequestId = response.data._id;
+      dispatch(removeFromRequests(connectionRequestId));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -50,13 +59,13 @@ const RequestCard = ({ request }) => {
             <div className="py-2 flex items-start justify-between">
               <div
                 className="badge badge-outline h-8 mx-2 rounded-[.25rem] cursor-pointer text-pink-400"
-                onClick={() => handleStatusBtn(REJECTED, requestId)}
+                onClick={() => handleStatusBtn(REJECTED, connectionRequestId)}
               >
                 Reject
               </div>
               <div
                 className="badge badge-outline h-8 mx-2 rounded-[.25rem] cursor-pointer text-green-400"
-                onClick={() => handleStatusBtn(ACCEPTED, requestId)}
+                onClick={() => handleStatusBtn(ACCEPTED, connectionRequestId)}
               >
                 Accept
               </div>
@@ -70,7 +79,7 @@ const RequestCard = ({ request }) => {
 
 RequestCard.propTypes = {
   request: PropTypes.shape({
-    _id: PropTypes.string.isRequired, // requestId
+    _id: PropTypes.string.isRequired, // connectionRequestId
     fromUserId: PropTypes.shape({
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,

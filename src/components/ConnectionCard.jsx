@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { EMPTY_OBJECT } from "../utils/Freeze";
 
 const ConnectionCard = ({ connection }) => {
-  console.log(connection);
   const { firstName, lastName, age, gender } =
     connection?.toUserId || connection?.fromUserId || EMPTY_OBJECT;
   return (

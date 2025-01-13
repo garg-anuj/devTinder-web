@@ -8,7 +8,11 @@ export const requestsSlice = createSlice({
       return action.payload;
     },
     removeFromRequests: (state, action) => {
-      return;
+      const connectionRequestId = action.payload; //connectionId
+      const filteredRequests = state.filter(
+        (request) => request._id !== connectionRequestId
+      );
+      return filteredRequests;
     },
   },
 });
